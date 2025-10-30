@@ -1,582 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - FluentMate</title>
+    <style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+      * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Sansation-Regular", Helvetica, Arial, sans-serif;
+        background-color: #c2f6ff;
+      }
+
+      .login-page {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        gap: 3rem;
+      }
+
+      /* Left illustration */
+      .login-page__illustration {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-page__illustration img {
+        width: 100%;
+        max-width: 550px;
+        height: auto;
+      }
+
+      /* Right form section */
+      .login-page__form-section {
+        flex: 1;
+        max-width: 480px;
+        background: #ffffff80;
+        border-radius: 16px;
+        padding: 2.5rem;
+        backdrop-filter: blur(6px);
+      }
+
+      .login-page__logo {
+        display: block;
+        width: 200px;
+        margin-bottom: 1rem;
+      }
+
+      .login-page__title {
+        font-family: "Sansation-Bold", Helvetica;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 0.5rem;
+      }
+
+      .login-page__subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.8rem);
+        color: #333;
+        margin-bottom: 2rem;
+      }
+
+      /* Form */
+      .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .login-form__input {
+        width: 100%;
+        height: 60px;
+        border-radius: 10px;
+        border: none;
+        background-color: #ecfffb;
+        padding: 0 1.2rem;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .login-form__input:focus {
+        outline: 2px solid #233dff;
+      }
+
+      .login-form__submit {
+        background-color: #233dff;
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        padding: 0.9rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .login-form__submit:hover {
+        background-color: #1a2ecc;
+      }
+
+      .login-page__divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      .login-page__divider-line {
+        flex: 1;
+        height: 1px;
+        background: #000;
+      }
+
+      .login-page__divider-text {
+        font-size: 1.2rem;
+        color: #4e4e4e;
+      }
+
+      .login-page__create-account {
+        display: block;
+        text-align: center;
+        background-color: #233dff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 30px;
+        padding: 0.9rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        transition: 0.2s;
+      }
+
+      .login-page__create-account:hover {
+        background-color: #1a2ecc;
+      }
+
+      /* RESPONSIVE DESIGN */
+      @media (max-width: 1024px) {
+        .login-page {
+          flex-direction: column;
+          gap: 2rem;
+          padding: 1.5rem;
+        }
+
+        .login-page__illustration img {
+          max-width: 400px;
+        }
+
+        .login-page__form-section {
+          max-width: 90%;
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .login-page__illustration {
+          display: none;
+        }
+
+        .login-page__form-section {
+          width: 100%;
+          padding: 1.5rem;
+          background: transparent;
+          box-shadow: none;
+        }
+
+        .login-page__title {
+          font-size: 2rem;
+          text-align: center;
+        }
+
+        .login-page__subtitle {
+          text-align: center;
+          font-size: 1.2rem;
+        }
+
+        .login-form__input {
+          font-size: 1rem;
+          height: 55px;
+        }
+
+        .login-form__submit,
+        .login-page__create-account {
+          font-size: 1rem;
+          height: 55px;
+        }
+      }
+    </style>
   </head>
-  <style>
-    @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-* {
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-html,
-body {
-  margin: 0px;
-  height: 100%;
-  width: 100;
-}
-/* a blue color as a generic focus style */
-button:focus-visible {
-  outline: 2px solid #4a90e2 !important;
-  outline: -webkit-focus-ring-color auto 5px !important;
-}
-a {
-  text-decoration: none;
-}
-.login-page {
-  background-color: #c2f6ff;
-  width: 50%;
-  min-width: 1440px;
-  min-height: 1024px;
-  position: relative;
-}
-
-.login-page .screenshot {
-  position: absolute;
-  top: 232px;
-  left: 66px;
-  width: 663px;
-  height: 590px;
-  aspect-ratio: 1.12;
-  object-fit: cover;
-}
-
-.login-page .text-wrapper {
-  position: absolute;
-  top: 186px;
-  left: 949px;
-  width: 161px;
-  font-family: "Sansation-Bold", Helvetica;
-  font-weight: 700;
-  color: #000000;
-  font-size: 57px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.login-page .div {
-  position: absolute;
-  top: 250px;
-  left: 807px;
-  width: 444px;
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 37px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.login-page .rectangle {
-  top: 327px;
-  height: 69px;
-  background-color: #ecfffb;
-  border-radius: 10px;
-  position: absolute;
-  left: 784px;
-  width: 490px;
-}
-
-.login-page .text-wrapper-2 {
-  position: absolute;
-  top: 344px;
-  left: 807px;
-  width: 295px;
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #4e4e4e;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.login-page .rectangle-2 {
-  top: 427px;
-  height: 69px;
-  background-color: #edfffb;
-  border-radius: 10px;
-  position: absolute;
-  left: 784px;
-  width: 490px;
-}
-
-.login-page .text-wrapper-3 {
-  position: absolute;
-  top: 447px;
-  left: 807px;
-  width: 170px;
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #4e4e4e;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.login-page .rectangle-3 {
-  top: 566px;
-  height: 68px;
-  background-color: #233dff;
-  border-radius: 30px;
-  position: absolute;
-  left: 784px;
-  width: 490px;
-}
-
-.login-page .text-wrapper-4 {
-  position: absolute;
-  top: 580px;
-  left: 971px;
-  width: 118px;
-  font-family: "Sansation-Bold", Helvetica;
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.login-page .text-wrapper-5 {
-  position: absolute;
-  top: 649px;
-  left: 1011px;
-  width: 35px;
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #4e4e4e;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.login-page .rectangle-4 {
-  top: 703px;
-  height: 68px;
-  background-color: #233dff;
-  border-radius: 30px;
-  position: absolute;
-  left: 784px;
-  width: 490px;
-}
-
-.login-page .text-wrapper-6 {
-  position: absolute;
-  top: 718px;
-  left: 892px;
-  width: 311px;
-  font-family: "Sansation-Bold", Helvetica;
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.login-page .eye {
-  position: absolute;
-  top: 447px;
-  left: 1212px;
-  width: 60px;
-  height: 30px;
-}
-
-.login-page .line {
-  left: 784px;
-  position: absolute;
-  top: 669px;
-  width: 205px;
-  height: 1px;
-  object-fit: cover;
-}
-
-.login-page .img {
-  left: 1074px;
-  position: absolute;
-  top: 669px;
-  width: 205px;
-  height: 1px;
-  object-fit: cover;
-}
-
-.login-page .FLUENTMATE-logo {
-  position: absolute;
-  top: 0;
-  left: 16px;
-  width: 489px;
-  height: 244px;
-  aspect-ratio: 1.5;
-  object-fit: cover;
-}
-/* Original CSS code should be injected here */
-
-.login-page {
-  background-color: #c2f6ff;
-  width: 100%;
-  min-width: 1440px;
-  min-height: 1024px;
-  position: relative;
-}
-
-.login-page__header {
-  position: absolute;
-  top: 0;
-  left: 16px;
-  width: 489px;
-  height: 244px;
-}
-
-.login-page__logo {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1.5;
-  object-fit: cover;
-}
-
-.login-page__content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.login-page__illustration {
-  position: absolute;
-  top: 232px;
-  left: 66px;
-  width: 663px;
-  height: 590px;
-}
-
-.login-page__illustration-image {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1.12;
-  object-fit: cover;
-}
-
-.login-page__form-section {
-  position: absolute;
-  top: 186px;
-  left: 784px;
-  width: 490px;
-}
-
-.login-page__title {
-  margin: 0;
-  margin-left: 165px;
-  width: 161px;
-  font-family: "Sansation-Bold", Helvetica;
-  font-weight: 700;
-  color: #000000;
-  font-size: 57px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.login-page__subtitle {
-  margin: 0;
-  margin-top: 64px;
-  margin-left: 23px;
-  width: 444px;
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 37px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.login-form {
-  margin-top: 77px;
-}
-
-.login-form__field {
-  position: relative;
-  margin-bottom: 31px;
-}
-
-.login-form__field--password {
-  margin-bottom: 70px;
-}
-
-.login-form__label {
-  display: block;
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #4e4e4e;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-  margin-bottom: 8px;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.login-form__input {
-  width: 100%;
-  height: 69px;
-  background-color: #ecfffb;
-  border: none;
-  border-radius: 10px;
-  padding: 0 23px;
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #4e4e4e;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-  box-sizing: border-box;
-}
-
-.login-form__input::placeholder {
-  color: #4e4e4e;
-  opacity: 1;
-}
-
-.login-form__input:focus {
-  outline: 2px solid #233dff;
-  outline-offset: 2px;
-}
-
-.login-form__field--password .login-form__input {
-  padding-right: 83px;
-}
-
-.login-form__toggle-password {
-  position: absolute;
-  top: 50%;
-  right: 23px;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-form__toggle-password:hover {
-  opacity: 0.7;
-}
-
-.login-form__toggle-password:focus {
-  outline: 2px solid #233dff;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-.login-form__toggle-icon {
-  width: 60px;
-  height: 30px;
-  display: block;
-}
-
-.login-form__submit {
-  width: 100%;
-  height: 68px;
-  background-color: #233dff;
-  border: none;
-  border-radius: 30px;
-  font-family: "Sansation-Bold", Helvetica;
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.login-form__submit:hover {
-  background-color: #1a2ecc;
-}
-
-.login-form__submit:active {
-  background-color: #0f1f99;
-}
-
-.login-form__submit:focus {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-}
-
-.login-page__divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  gap: 20px;
-}
-
-.login-page__divider-line {
-  width: 205px;
-  height: 1px;
-  background-color: #000000;
-  display: block;
-}
-
-.login-page__divider-text {
-  font-family: "Sansation-Regular", Helvetica;
-  font-weight: 400;
-  color: #4e4e4e;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.login-page__create-account {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 68px;
-  background-color: #233dff;
-  border-radius: 30px;
-  font-family: "Sansation-Bold", Helvetica;
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 33px;
-  letter-spacing: 0;
-  line-height: normal;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.login-page__create-account:hover {
-  background-color: #1a2ecc;
-}
-
-.login-page__create-account:active {
-  background-color: #0f1f99;
-}
-
-.login-page__create-account:focus {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-}
-:root {
-  --black: rgba(0, 0, 0, 1);
-  --gray: rgba(115, 115, 123, 1);
-  --light-gray: rgba(166, 166, 171, 1);
-  --violet: rgba(91, 81, 222, 1);
-  --white: rgba(255, 255, 255, 1);
-  --background: rgba(244, 244, 248, 1);
-  --h1-font-family: "SF UI Display", Helvetica;
-  --h1-font-weight: 400;
-  --h1-font-size: 70px;
-  --h1-letter-spacing: 0px;
-  --h1-line-height: 80px;
-  --h1-font-style: normal;
-  --h2-font-family: "SF UI Display", Helvetica;
-  --h2-font-weight: 400;
-  --h2-font-size: 50px;
-  --h2-letter-spacing: 0px;
-  --h2-line-height: 60px;
-  --h2-font-style: normal;
-  --body-text-font-family: "SF UI Display", Helvetica;
-  --body-text-font-weight: 400;
-  --body-text-font-size: 20px;
-  --body-text-letter-spacing: 0px;
-  --body-text-line-height: 25px;
-  --body-text-font-style: normal;
-  --h3-font-family: "SF UI Display", Helvetica;
-  --h3-font-weight: 400;
-  --h3-font-size: 24px;
-  --h3-letter-spacing: 0px;
-  --h3-line-height: 30px;
-  --h3-font-style: normal;
-  --body-text-small-font-family: "SF UI Display", Helvetica;
-  --body-text-small-font-weight: 400;
-  --body-text-small-font-size: 16px;
-  --body-text-small-letter-spacing: 0px;
-  --body-text-small-line-height: 24px;
-  --body-text-small-font-style: normal;
-  --btn-text-font-family: "SF Pro Text", Helvetica;
-  --btn-text-font-weight: 500;
-  --btn-text-font-size: 18px;
-  --btn-text-letter-spacing: 0px;
-  --btn-text-line-height: 20px;
-  --btn-text-font-style: normal;
-}
-
-  </style>
   <body>
     <main class="login-page">
-      <header class="login-page__header">
-        <img class="login-page__logo" src="img/logo.png" alt="FluentMate Logo" />
-      </header>
-      <div class="login-page__content">
-        <aside class="login-page__illustration">
-          <img
-            class="login-page__illustration-image"
-            src="img/rob.png"
-            alt="Robot illustration working on laptop"
+      <aside class="login-page__illustration">
+        <img src="img/rob.png" alt="Robot illustration working on laptop" />
+      </aside>
+
+      <section class="login-page__form-section">
+        <img src="img/logo.png" alt="FluentMate Logo" class="login-page__logo" />
+        <h1 class="login-page__title">Login</h1>
+        <p class="login-page__subtitle">Sign in to your account</p>
+
+        <form class="login-form" action="/login" method="post" novalidate>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username / Email"
+            required
+            class="login-form__input"
           />
-        </aside>
-        <section class="login-page__form-section">
-          <h1 class="login-page__title">Login</h1>
-          <p class="login-page__subtitle">Sign in to your account</p>
-          <form class="login-form" action="/login" method="post" novalidate>
-            <div class="login-form__field">
-              <label for="username" class="login-form__label visually-hidden">Username/Email</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                class="login-form__input"
-                placeholder="Username/Email"
-                required
-                aria-required="true"
-                autocomplete="username"
-              />
-            </div>
-            <div class="login-form__field login-form__field--password">
-              <label for="password" class="login-form__label visually-hidden">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="login-form__input"
-                placeholder="Password"
-                required
-                aria-required="true"
-                autocomplete="current-password"
-              />
-              <button
-                type="button"
-                class="login-form__toggle-password"
-                aria-label="Toggle password visibility"
-                aria-pressed="false"
-              >
-                <img class="login-form__toggle-icon" src="img/Eye.png" alt="" />
-              </button>
-            </div>
-            <button type="submit" class="login-form__submit">Sign in</button>
-          </form>
-          <div class="login-page__divider">
-            <span class="login-page__divider-line"></span>
-            <span class="login-page__divider-text">or</span>
-            <span class="login-page__divider-line"></span>
-          </div>
-          <a href="/register" class="login-page__create-account">Create an account</a>
-        </section>
-      </div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            class="login-form__input"
+          />
+          <button type="submit" class="login-form__submit">Sign In</button>
+        </form>
+
+        <div class="login-page__divider">
+          <span class="login-page__divider-line"></span>
+          <span class="login-page__divider-text">or</span>
+          <span class="login-page__divider-line"></span>
+        </div>
+
+        <!-- Fixed link -->
+        <a href="signup.html" class="login-page__create-account">Create an Account</a>
+      </section>
     </main>
   </body>
 </html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language Learning Journey - FluentMate</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #c2f6ff; /* Same as signup page */
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Top Logo */
+    header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 25px 70px;
+    }
+
+    header img {
+      width: 240px; /* Increased logo size */
+      height: auto;
+    }
+
+    /* Main Content Layout */
+    main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 90%;
+      max-width: 1300px;
+      flex: 1;
+      padding: 60px 0;
+      gap: 3rem;
+    }
+
+    /* Left Robot */
+    .robot {
+      flex: 1.1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .robot img {
+      width: 420px; /* Larger robot for fuller page */
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Right Content */
+    .content {
+      flex: 1;
+      min-width: 360px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .title-row img {
+      width: px; /* Larger globe */
+      height: 100px;
+    }
+    .title-row h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 2.2rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Language Buttons */
+    .languages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .language {
+      background-color: #ffffff;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      text-align: center;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-size: 1.05rem;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .language:hover {
+      border-color: #233dff;
+      background-color: #ecf0ff;
+      transform: translateY(-2px);
+    }
+
+    .language.active {
+      border-color: #233dff;
+      background-color: #ecf0ff;
+    }
+
+    /* Continue Button */
+    .continue-btn {
+      background-color: #233dff;
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      padding: 1rem 3rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 4px 8px rgba(35, 61, 255, 0.3);
+    }
+
+    .continue-btn:hover {
+      background-color: #1a2ecc;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 40px;
+      }
+
+      .robot img {
+        width: 300px;
+        margin-bottom: 1.5rem;
+      }
+
+      .title-row {
+        justify-content: center;
+      }
+
+      .languages {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .continue-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 500px) {
+      header {
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .title-row img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .languages {
+        grid-template-columns: 1fr;
+      }
+
+      .title-row h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Logo -->
+  <header>
+    <img src="img/logo.png" alt="FluentMate Logo" />
+  </header>
+
+  <!-- Main Section -->
+  <main>
+    <div class="robot">
+      <img src="img/learn.png" alt="Robot Illustration" />
+    </div>
+
+    <div class="content">
+      <div class="title-row">
+        <img src="img/globe.png" alt="Globe Icon" />
+        <h1>Language Learning Journey</h1>
+      </div>
+
+      <p class="subtitle">
+        Select the languages you know and the ones you want to learn.
+      </p>
+
+      <h3>Languages you know</h3>
+
+      <div class="languages">
+        <div class="language">English</div>
+        <div class="language">Hindi</div>
+        <div class="language">Marathi</div>
+        <div class="language">Sanskrit</div>
+        <div class="language">Tamil</div>
+        <div class="language">Gujrati</div>
+        <div class="language">Bengali</div>
+        <div class="language">Punjabi</div>
+        <div class="language">Urdu</div>
+      </div>
+
+      <button class="continue-btn" onclick="window.location.href='next.html'">
+        Continue →
+      </button>
+    </div>
+  </main>
+
+  <script>
+    // Toggle language selection
+    const languages = document.querySelectorAll(".language");
+    languages.forEach(lang => {
+      lang.addEventListener("click", () => {
+        lang.classList.toggle("active");
+      });
+    });
+  </script>
+</body>
+</html>
