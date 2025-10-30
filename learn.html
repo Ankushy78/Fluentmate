@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: "Poppins", sans-serif;
-      background-color: #c2f6ff; /* Same as signup page */
+      background-color: #c2f6ff;
       margin: 0;
       padding: 0;
       min-height: 100vh;
@@ -16,7 +16,6 @@
       align-items: center;
     }
 
-    /* Top Logo */
     header {
       width: 100%;
       display: flex;
@@ -25,11 +24,10 @@
     }
 
     header img {
-      width: 240px; /* Increased logo size */
+      width: 240px;
       height: auto;
     }
 
-    /* Main Content Layout */
     main {
       display: flex;
       justify-content: space-between;
@@ -42,7 +40,6 @@
       gap: 3rem;
     }
 
-    /* Left Robot */
     .robot {
       flex: 1.1;
       display: flex;
@@ -50,12 +47,11 @@
     }
 
     .robot img {
-      width: 420px; /* Larger robot for fuller page */
+      width: 420px;
       max-width: 100%;
       height: auto;
     }
 
-    /* Right Content */
     .content {
       flex: 1;
       min-width: 360px;
@@ -69,9 +65,9 @@
     }
 
     .title-row img {
-      width: px; /* Larger globe */
       height: 100px;
     }
+
     .title-row h1 {
       font-size: 2.4rem;
       font-weight: 700;
@@ -90,7 +86,6 @@
       margin-bottom: 1.2rem;
     }
 
-    /* Language Buttons */
     .languages {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -122,7 +117,6 @@
       background-color: #ecf0ff;
     }
 
-    /* Continue Button */
     .continue-btn {
       background-color: #233dff;
       color: #fff;
@@ -141,7 +135,6 @@
       transform: translateY(-2px);
     }
 
-    /* Responsive Design */
     @media (max-width: 900px) {
       main {
         flex-direction: column;
@@ -190,12 +183,10 @@
   </style>
 </head>
 <body>
-  <!-- Top Logo -->
   <header>
     <img src="img/logo.png" alt="FluentMate Logo" />
   </header>
 
-  <!-- Main Section -->
   <main>
     <div class="robot">
       <img src="img/learn.png" alt="Robot Illustration" />
@@ -207,9 +198,7 @@
         <h1>Language Learning Journey</h1>
       </div>
 
-      <p class="subtitle">
-        Select the languages you know and the ones you want to learn.
-      </p>
+      <p class="subtitle">Select the languages you know and the ones you want to learn.</p>
 
       <h3>Languages you want to learn</h3>
 
@@ -219,30 +208,37 @@
         <div class="language">Marathi</div>
         <div class="language">Sanskrit</div>
         <div class="language">Tamil</div>
-        <div class="language">Gujrati</div>
+        <div class="language">Gujarati</div>
         <div class="language">Bengali</div>
         <div class="language">Punjabi</div>
         <div class="language">Urdu</div>
       </div>
 
-<<<<<<< HEAD
-      <button class="continue-btn" onclick="window.location.href='know.html'">
-=======
-      <button class="continue-btn" onclick="window.location.href='next.html'">
->>>>>>> 2c2cf50eec9b41e69baefc1615ad2a2d668da8eb
-        Continue →
-      </button>
+      <button class="continue-btn" onclick="goToChat()">Continue →</button>
     </div>
   </main>
 
   <script>
-    // Toggle language selection
     const languages = document.querySelectorAll(".language");
+    let selectedLanguage = null;
+
     languages.forEach(lang => {
       lang.addEventListener("click", () => {
-        lang.classList.toggle("active");
+        languages.forEach(l => l.classList.remove("active"));
+        lang.classList.add("active");
+        selectedLanguage = lang.textContent.trim();
       });
     });
+
+    function goToChat() {
+      if (!selectedLanguage) {
+        alert("Please select a language first!");
+        return;
+      }
+      // Save selected language so chat.html can use it
+      localStorage.setItem("selectedLanguage", selectedLanguage);
+      window.location.href = "chat.html";
+    }
   </script>
 </body>
 </html>

@@ -25,7 +25,7 @@
     }
 
     header img {
-      width: 240px; /* Increased logo size */
+      width: 240px;
       height: auto;
     }
 
@@ -50,7 +50,7 @@
     }
 
     .robot img {
-      width: 420px; /* Larger robot for fuller page */
+      width: 420px;
       max-width: 100%;
       height: auto;
     }
@@ -69,9 +69,9 @@
     }
 
     .title-row img {
-      width: px; /* Larger globe */
       height: 100px;
     }
+
     .title-row h1 {
       font-size: 2.4rem;
       font-weight: 700;
@@ -213,31 +213,51 @@
 
       <h3>Languages you know</h3>
 
-      <div class="languages">
+      <div class="languages" id="knownLanguages">
         <div class="language">English</div>
         <div class="language">Hindi</div>
         <div class="language">Marathi</div>
         <div class="language">Sanskrit</div>
         <div class="language">Tamil</div>
-        <div class="language">Gujrati</div>
+        <div class="language">Gujarati</div>
         <div class="language">Bengali</div>
         <div class="language">Punjabi</div>
         <div class="language">Urdu</div>
       </div>
 
-      <button class="continue-btn" onclick="window.location.href='next.html'">
+      <button class="continue-btn" id="continueBtn">
         Continue →
       </button>
     </div>
   </main>
 
   <script>
-    // Toggle language selection
     const languages = document.querySelectorAll(".language");
+
+    // toggle selection
     languages.forEach(lang => {
       lang.addEventListener("click", () => {
         lang.classList.toggle("active");
       });
+    });
+
+    // when continue is clicked
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      const selected = [];
+      document.querySelectorAll(".language.active").forEach(l => {
+        selected.push(l.innerText);
+      });
+
+      if (selected.length === 0) {
+        alert("Please select at least one language you know!");
+        return;
+      }
+
+      // store selected languages in localStorage
+      localStorage.setItem("knownLanguages", JSON.stringify(selected));
+
+      // redirect to learn.html
+      window.location.href = "learn.html";
     });
   </script>
 </body>
