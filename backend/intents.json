@@ -1,0 +1,67 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hello",
+        "hi",
+        "hey",
+        "good morning",
+        "good evening",
+        "how are you",
+        "hi there",
+        "hello chatbot",
+        "good afternoon",
+        "hey bot"
+      ]
+    },
+    {
+      "tag": "favourite_color",
+      "patterns": [
+        "my favourite color is red",
+        "my favorite color is blue",
+        "i like yellow",
+        "i love green",
+        "red is my favourite color",
+        "blue is the color i like",
+        "yellow is my favorite",
+        "i prefer black",
+        "orange is my favourite",
+        "pink is the color i love",
+        "my most loved color is white",
+        "green is the color i prefer",
+        "i really like purple",
+        "brown is my favourite color",
+        "my favourite colour is red",
+        "i like the color blue",
+        "i love the color green",
+        "yellow is the color i like the most",
+        "black is my favourite",
+        "white is the color i prefer",
+        "purple is my favorite color",
+        "orange is the color i love",
+        "my favorite colour is brown",
+        "red is the color i like",
+        "i really love pink",
+        "i prefer the color yellow",
+        "blue is my favourite colour",
+        "green is my favorite color",
+        "pink is my favourite colour",
+        "brown is the color i love"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye",
+        "goodbye",
+        "see you",
+        "talk later",
+        "bye bye",
+        "see you later",
+        "catch you later",
+        "have a nice day"
+      ]
+    }
+  ]
+}

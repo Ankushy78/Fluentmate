@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FluentMate Chat</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #c2f6ff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .left-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .back-btn {
+      background-color: #233dff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .back-btn:hover {
+      background-color: #1a2ecc;
+    }
+
+    .logo {
+      height: 60px;
+    }
+
+    .header-text {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .chat-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #e9fbff;
+      border-radius: 25px 25px 0 0;
+      margin: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-right: 10px;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      max-width: 80%;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .message img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .bubble {
+      background-color: white;
+      padding: 10px 16px;
+      border-radius: 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      font-size: 16px;
+    }
+
+    .message.user .bubble {
+      background-color: #233dff;
+      color: white;
+    }
+
+    .translation {
+      font-size: 13px;
+      color: #555;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .input-area button {
+      background-color: #233dff;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .input-area button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .chat-area {
+        margin: 10px;
+      }
+
+      .header-text {
+        font-size: 18px;
+      }
+
+      .back-btn {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+
+      .logo {
+        height: 45px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-section">
+      <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+      <img src="frontend/img/logo.png" alt="FluentMate Logo" class="logo" />
+    </div>
+    <div class="header-text" id="greeting">Hey, User! You’re learning English!</div>
+  </header>
+
+  <div class="chat-container">
+    <main class="chat-area">
+      <div class="messages" id="messages"></div>
+
+      <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const username = localStorage.getItem('userName') || 'User';
+    const selectedLang = localStorage.getItem('selectedLanguage') || 'English';
+
+    document.getElementById('greeting').innerText = `Hey, ${username}! You’re learning ${selectedLang}!`;
+
+    const greetings = {
+      English: { msg: "Hello 👋 I’m FluentMate! Let’s start learning!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Hindi: { msg: "नमस्ते 👋 मैं FluentMate हूँ, चलिए सीखना शुरू करें!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Marathi: { msg: "नमस्कार 👋 मी FluentMate आहे, चला शिकायला सुरुवात करूया!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Sanskrit: { msg: "नमस्ते 👋 अहं FluentMate अस्मि, पठाम आरभाम!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Tamil: { msg: "வணக்கம் 👋 நான் FluentMate, கற்போம் தொடங்கலாம்!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Gujarati: { msg: "નમસ્તે 👋 હું FluentMate છું, ચાલો શીખવાનું શરૂ કરીએ!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Bengali: { msg: "নমস্কার 👋 আমি FluentMate, চল শুরু করি!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Punjabi: { msg: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ 👋 ਮੈਂ FluentMate ਹਾਂ, ਆਓ ਸਿੱਖਣਾ ਸ਼ੁਰੂ ਕਰੀਏ!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" },
+      Urdu: { msg: "سلام 👋 میں FluentMate ہوں، آئیں سیکھنا شروع کریں!", trans: "(Hello 👋 I’m FluentMate! Let’s start learning!)" }
+    };
+
+    const messages = document.getElementById('messages');
+
+    function appendMessage(text, sender = 'bot', translation = '') {
+      const msg = document.createElement('div');
+      msg.classList.add('message', sender);
+      msg.innerHTML = `
+        ${sender === 'bot' ? '<img src="img/robo.png"/>' : ''}
+        <div>
+          <div class="bubble">${text}</div>
+          ${translation ? `<div class="translation">${translation}</div>` : ''}
+        </div>
+        ${sender === 'user' ? '<img src="img/Vector.png"/>' : ''}
+      `;
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    // Show first message based on selected language
+    const first = greetings[selectedLang] || greetings['English'];
+    appendMessage(first.msg, 'bot', first.trans);
+
+    // Handle user message
+    document.getElementById('send-btn').addEventListener('click', sendMessage);
+    document.getElementById('user-input').addEventListener('keypress', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendMessage() {
+  const input = document.getElementById('user-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  appendMessage(text, 'user');
+  input.value = '';
+
+  fetch("http://127.0.0.1:5000/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: text })
+  })
+  .then(response => response.json())
+  .then(data => {
+    appendMessage(data.response, 'bot');
+  })
+  .catch(error => {
+    appendMessage("Error connecting to server.", 'bot');
+    console.error(error);
+  });
+}
+
+  </script>
+</body>
+</html>
